@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class=" bg-gray-200 min-h-screen flex items-center justify-center p-5">
+  
+  <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl w-full">
+    <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">STI COLLEGE CALOOCAN GRADE CALCULATOR</h2>
+    <form id="gradeForm" class="space-y-4">
+      <div>
+        <label class="block font-medium">Prelim Grade</label>
+        <input type="number" id="prelim" step="0.01" class="w-full border rounded-lg p-2 mt-1" required>
+      </div>
+      <div>
+        <label class="block font-medium">Midterm Grade</label>
+        <input type="number" id="midterm" step="0.01" class="w-full border rounded-lg p-2 mt-1" required>
+      </div>
+      <div>
+        <label class="block font-medium">Prefinal Grade</label>
+        <input type="number" id="prefinal" step="0.01" class="w-full border rounded-lg p-2 mt-1" required>
+      </div>
+      <div>
+        <label class="block font-medium">Finals Grade</label>
+        <input type="number" id="finals" step="0.01" class="w-full border rounded-lg p-2 mt-1" required>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition">Calculate</button>
+    </form>
+
+<div class="mt-8">
+  <h3 class="text-lg font-semibold mb-4">Grading System</h3>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+    <div class="p-4 border rounded-lg">
+      <p><strong>97.50 - 100%</strong> (1.00) Excellent</p>
+      <p><strong>94.50 - 97.49%</strong> (1.25) Very Good</p>
+      <p><strong>91.50 - 94.49%</strong> (1.50) Very Good</p>
+      <p><strong>88.50 - 91.49%</strong> (1.75) Very Good</p>
+      <p><strong>85.50 - 88.49%</strong> (2.00) Satisfactory</p>
+    </div>
+    <div class="p-4 border rounded-lg">
+      <p><strong>81.50 - 85.49%</strong> (2.25) Satisfactory</p>
+      <p><strong>77.50 - 81.49%</strong> (2.50) Satisfactory</p>
+      <p><strong>73.50 - 77.49%</strong> (2.75) Fair</p>
+      <p><strong>69.50 - 73.49%</strong> (3.00) Fair</p>
+      <p><strong>69.49% and below</strong> (5.00) Failed</p>
+    </div>
+  </div>
+</div>
+    <div id="result" class="mt-6 text-center text-lg font-semibold text-green-600"></div>
+  </div>
+
+  <script>
+    document.getElementById('gradeForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const prelim = parseFloat(document.getElementById('prelim').value);
+      const midterm = parseFloat(document.getElementById('midterm').value);
+      const prefinal = parseFloat(document.getElementById('prefinal').value);
+      const finals = parseFloat(document.getElementById('finals').value);
+
+      const totalSum = (prelim * 0.20) + (midterm * 0.20) + (prefinal * 0.20) + (finals * 0.40);
+
+      localStorage.setItem('savedGrade', totalSum);
+
+      document.getElementById('result').textContent = `Your Final Grade is: ${totalSum.toFixed(2)}`;
+    });
+  </script>
+
+</body>
+</html>
