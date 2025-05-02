@@ -6,7 +6,7 @@
   <title>Grade Calculator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class=" bg-gray-200 min-h-screen flex items-center justify-center p-5">
+<body class="bg-gray-200 min-h-screen flex items-center justify-center p-5">
   
   <div class="bg-white p-8 rounded-2xl shadow-lg max-w-4xl w-full">
     <h2 class="text-2xl font-bold text-center text-blue-600 mb-6">STI COLLEGE CALOOCAN GRADE CALCULATOR</h2>
@@ -31,26 +31,27 @@
       <button type="submit" class="bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition">Calculate</button>
     </form>
 
-<div class="mt-8">
-  <h3 class="text-lg font-semibold mb-4">Grading System</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-    <div class="p-4 border rounded-lg">
-      <p><strong>97.50 - 100%</strong> (1.00) Excellent</p>
-      <p><strong>94.50 - 97.49%</strong> (1.25) Very Good</p>
-      <p><strong>91.50 - 94.49%</strong> (1.50) Very Good</p>
-      <p><strong>88.50 - 91.49%</strong> (1.75) Very Good</p>
-      <p><strong>85.50 - 88.49%</strong> (2.00) Satisfactory</p>
+    <div class="mt-8">
+      <h3 class="text-lg font-semibold mb-4">Grading System</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div class="p-4 border rounded-lg">
+          <p><strong>97.50 - 100%</strong> (1.00) Excellent</p>
+          <p><strong>94.50 - 97.49%</strong> (1.25) Very Good</p>
+          <p><strong>91.50 - 94.49%</strong> (1.50) Very Good</p>
+          <p><strong>88.50 - 91.49%</strong> (1.75) Very Good</p>
+          <p><strong>85.50 - 88.49%</strong> (2.00) Satisfactory</p>
+        </div>
+        <div class="p-4 border rounded-lg">
+          <p><strong>81.50 - 85.49%</strong> (2.25) Satisfactory</p>
+          <p><strong>77.50 - 81.49%</strong> (2.50) Satisfactory</p>
+          <p><strong>73.50 - 77.49%</strong> (2.75) Fair</p>
+          <p><strong>69.50 - 73.49%</strong> (3.00) Fair</p>
+          <p><strong>69.49% and below</strong> (5.00) Failed</p>
+        </div>
+      </div>
     </div>
-    <div class="p-4 border rounded-lg">
-      <p><strong>81.50 - 85.49%</strong> (2.25) Satisfactory</p>
-      <p><strong>77.50 - 81.49%</strong> (2.50) Satisfactory</p>
-      <p><strong>73.50 - 77.49%</strong> (2.75) Fair</p>
-      <p><strong>69.50 - 73.49%</strong> (3.00) Fair</p>
-      <p><strong>69.49% and below</strong> (5.00) Failed</p>
-    </div>
-  </div>
-</div>
-    <div id="result" class="mt-6 text-center text-lg font-semibold text-green-600"></div>
+
+    <div id="result" class="mt-6 text-center text-slate-700 text-lg "></div>
   </div>
 
   <script>
@@ -64,9 +65,74 @@
 
       const totalSum = (prelim * 0.20) + (midterm * 0.20) + (prefinal * 0.20) + (finals * 0.40);
 
+      let gradeLabel = "";
+      let numericalGrade = 0;
+      let status = "";
+      let statusColor = "";
+
+      if (totalSum >= 97.50) {
+        gradeLabel = "Excellent";
+        numericalGrade = 1.00;
+        status = "Passed";
+        statusColor = "text-green-600";
+      } else if (totalSum >= 94.50) {
+        gradeLabel = "Very Good";
+        numericalGrade = 1.25;
+        status = "Passed";
+        statusColor = "text-blue-600";
+      } else if (totalSum >= 91.50) {
+        gradeLabel = "Very Good";
+        numericalGrade = 1.50;
+        status = "Passed";
+        statusColor = "text-blue-600";
+      } else if (totalSum >= 88.50) {
+        gradeLabel = "Very Good";
+        numericalGrade = 1.75;
+        status = "Passed";
+        statusColor = "text-blue-600";
+      } else if (totalSum >= 85.50) {
+        gradeLabel = "Satisfactory";
+        numericalGrade = 2.00;
+        status = "Passed";
+        statusColor = "text-green-600";
+      } else if (totalSum >= 81.50) {
+        gradeLabel = "Satisfactory";
+        numericalGrade = 2.25;
+        status = "Passed";
+        statusColor = "text-green-600";
+      } else if (totalSum >= 77.50) {
+        gradeLabel = "Satisfactory";
+        numericalGrade = 2.50;
+        status = "Passed";
+        statusColor = "text-green-600";
+      } else if (totalSum >= 73.50) {
+        gradeLabel = "Fair";
+        numericalGrade = 2.75;
+        status = "Passed";
+        statusColor = "text-yellow-600";
+      } else if (totalSum >= 69.50) {
+        gradeLabel = "Fair";
+        numericalGrade = 3.00;
+        status = "Passed";
+        statusColor = "text-yellow-600";
+      } else {
+        gradeLabel = "Failed";
+        numericalGrade = 5.00;
+        status = "Failed";
+        statusColor = "text-red-600";
+      }
+
+
+      numericalGrade = numericalGrade.toFixed(2);
+
       localStorage.setItem('savedGrade', totalSum);
 
-      document.getElementById('result').textContent = `Your Final Grade is: ${totalSum.toFixed(2)}`;
+      document.getElementById('result').innerHTML = `
+        <p><strong>Final Result</strong></p>
+        <p class="text-xl">Final GWA: <strong>${totalSum.toFixed(2)}%</strong></p>
+        <p class="text-xl">Numerical Grade: <strong>${numericalGrade}</strong></p>
+        <p class="text-xl ${statusColor}">Status: <strong>${status}</strong></p>
+      `;
     });
   </script>
 
